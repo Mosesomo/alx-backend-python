@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""Annotations in python"""
 
 
 def add(a: float, b: float) -> float:
