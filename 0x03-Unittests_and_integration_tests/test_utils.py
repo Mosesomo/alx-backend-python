@@ -3,7 +3,7 @@
 import unittest
 from parameterized import parameterized
 from typing import Dict, Union, Tuple
-from utilis import access_nested_map, get_json, memoize
+from utils import access_nested_map, get_json, memoize
 from unittest.mock import Mock, patch
 
 
