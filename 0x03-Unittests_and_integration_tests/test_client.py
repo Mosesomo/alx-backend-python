@@ -4,11 +4,7 @@ import unittest
 from parameterized import parameterized
 from unittest.mock import patch, PropertyMock, Mock
 from client import GithubOrgClient
-from utils import (
-    get_json,
-    access_nested_map,
-    memoize,
-)
+from typing import Dict
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -62,3 +58,14 @@ class TestGithubOrgClient(unittest.TestCase):
             expected_repos = ['repo1', 'repo2', 'repo3']
             self.assertEqual(repos, expected_repos)
             mock_get_public_repos.assert_called_once()
+
+    @parameterized.expand([
+        ({'license': {'key': 'my_license'}}, 'my_license', True),
+        ({'license': {'key': 'other_license'}}, 'my_license', False),
+    ])
+    def test_has_license(self, repo: Dict,
+                         key: str, expected: bool) -> None:
+        '''Test for `has_license` method'''
+        git_client = GithubOrgClient('google')
+        has_license = git_client.has_license(repo, key)
+        self.assertEqual(has_license, expected)
